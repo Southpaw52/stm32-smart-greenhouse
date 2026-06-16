@@ -2,7 +2,7 @@
 
 *[For English, scroll down ⬇️]*
 
-## 🇹🇷 [TR] STM32F407VG Tabanlı Akıllı Sera Otomasyon Sistemi
+## [TR] STM32F407VG Tabanlı Akıllı Sera Otomasyon Sistemi
 Bu proje, farklı bitki türlerinin değişen iklim ve ışık gereksinimlerini tek bir platformda otonom biçimde yönetebilen, modüler bir akıllı sera prototipidir. Geleneksel 8-bit ve bloklayıcı (blocking) tabanlı hobi projelerinin aksine; sistem kararlılığını artırmak için 32-bit ARM Cortex-M4 mimarisi ve Zaman Tetiklemeli Durum Makinesi (Finite State Machine - FSM) kullanılarak tasarlanmıştır.
 
 ### 🌟 Temel Özellikler
@@ -35,7 +35,7 @@ Bu sistemin ilerleyen versiyonlarında geliştirilmesi planlanan özellikler:
 
 ---
 
-## 🇬🇧 [EN] STM32F407VG Based Smart Greenhouse Automation System
+## [EN] STM32F407VG Based Smart Greenhouse Automation System
 This project is a modular smart greenhouse prototype capable of autonomously managing the varying climate and light requirements of different plant species on a single platform. Unlike traditional 8-bit, delay-based hobby projects, it is designed using a 32-bit ARM Cortex-M4 architecture and a Time-Triggered Finite State Machine (FSM) to maximize system stability.
 
 ### 🌟 Key Features
