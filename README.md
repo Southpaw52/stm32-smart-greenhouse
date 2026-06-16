@@ -1,37 +1,67 @@
-# STM32F407VG Tabanlı Akıllı Sera Otomasyon Sistemi
+# STM32F407VG Smart Greenhouse Automation System / Akıllı Sera Otomasyon Sistemi
 
-Bu proje, farklı bitki türlerinin değişen iklim ve ışık gereksinimlerini tek bir platformda otonom biçimde yönetebilen, modüler bir akıllı sera prototipidir. Geleneksel 8-bit ve delay() (bloklayıcı) tabanlı hobi projelerinin aksine; sistem kararlılığını artırmak için 32-bit ARM Cortex-M4 mimarisi ve Zaman Tetiklemeli Durum Makinesi (Finite State Machine - FSM) kullanılarak tasarlanmıştır.
+*[For English, scroll down ⬇️]*
 
-## 🌟 Temel Özellikler
-* **Otonom İklimlendirme:** BME280 sensörü ile hava sıcaklığı ve neminin, kapasitif sensör ile toprak neminin gerçek zamanlı izlenmesi ve eşik değerlere göre kontrolü.
+## 🇹🇷 [TR] STM32F407VG Tabanlı Akıllı Sera Otomasyon Sistemi
+Bu proje, farklı bitki türlerinin değişen iklim ve ışık gereksinimlerini tek bir platformda otonom biçimde yönetebilen, modüler bir akıllı sera prototipidir. Geleneksel 8-bit ve bloklayıcı (blocking) tabanlı hobi projelerinin aksine; sistem kararlılığını artırmak için 32-bit ARM Cortex-M4 mimarisi ve Zaman Tetiklemeli Durum Makinesi (Finite State Machine - FSM) kullanılarak tasarlanmıştır.
+
+### 🌟 Temel Özellikler
+* **Otonom İklimlendirme:** BME280 sensörü ile hava sıcaklığı/neminin ve kapasitif sensör ile toprak neminin gerçek zamanlı izlenmesi.
 * **Termal Yönetim ve Aydınlatma:** Harici bir ısıtıcı kullanmak yerine, yüksek güçlü bitki (Grow) LED'lerinin ürettiği atık ısı geri kazanılarak seranın pasif olarak ısıtılması.
 * **Pasif Soğutma:** Ortam sıcaklığı üst sınırı aştığında PWM sinyali ile kontrol edilen servo motorlu havalandırma penceresinin otonom yönetimi.
-* **Modüler Kullanıcı Arayüzü:** I2C tabanlı 16x2 LCD ekran ve menü sistemi üzerinden bitki profillerinin seçilebilmesi ve fotoperiyot/iklim eşiklerinin otomatik ayarlanması.
-* **Bloklamayan (Non-Blocking) Yazılım:** `HAL_GetTick()` referans alınarak oluşturulan görev zamanlayıcısı ile mikrodenetleyicinin sensör okuma ve aktüatör kontrolü sırasında kilitlenmesinin önüne geçilmesi.
+* **Modüler Kullanıcı Arayüzü:** I2C tabanlı 16x2 LCD ekran ve menü sistemi üzerinden bitki profillerinin seçilebilmesi.
+* **Bloklamayan (Non-Blocking) Yazılım:** `HAL_GetTick()` referans alınarak oluşturulan görev zamanlayıcısı ile ana döngünün kesintisiz çalışması.
 
-## 🛠 Donanım ve Malzeme Listesi
-* **Mikrodenetleyici:** STM32F407VG (168 MHz, Donanımsal FPU, Harvard Mimarisi)
-* **Sensörler:** 
-  * Bosch BME280 (Sıcaklık, Nem ve Basınç - I2C ile iletişim)
-  * Kapasitif Toprak Nem Sensörü (Korozyon dirençli - ADC ile iletişim)
-* **Aktüatörler ve Yükler:** 
-  * 12V DC Su Pompası (Röle kontrollü)
-  * 12V Full Spectrum Grow LED (Röle kontrollü)
-  * Servo Motor (Havalandırma penceresi için - PWM kontrollü)
-* **Güç Yönetimi:** Isınma sorunlarını ve enerji kaybını önlemek amacıyla LM2596 Buck Converter ile yapılandırılmış 12V / 5V izole güç dağıtım mimarisi.
-* **Arayüz:** 16x2 Karakter LCD Ekran (PCF8574 I2C modülü ile) ve menü butonları.
+### 🔌 Pin Bağlantıları (Pinout)
+Sistemdeki donanımların STM32F407VG mikrodenetleyicisine bağlantı şeması aşağıdaki gibidir:
 
-## 💻 Yazılım Mimarisi (Driver Katmanı)
-Yazılım, kolay ölçeklenebilirlik için modüler bir yapıda C dili ile yazılmıştır:
-* `bme280.c / .h`: Çevresel sensör okuma sürücüleri.
-* `soil_moisture.c / .h`: ADC üzerinden analog nem verisi dönüştürme.
-* `actuator.c / .h`: Röle ve PWM tabanlı servo motor kontrol katmanı.
-* `lcd_display_2x16_i2c_driver.c / .h` & `menu.c / .h`: I2C haberleşmeli ekran ve menü durumu yönetimi.
-* `plant_profile.c / .h`: Bitki türlerine göre optimize edilmiş eşik değeri veri yapıları.
+| Bileşen / Modül | STM32 Pini | İşlev / Protokol |
+| :--- | :--- | :--- |
+| **BME280 SDA** | PB7[cite: 1] | I2C1 Veri Hattı[cite: 1] |
+| **BME280 SCL** | PB6[cite: 1] | I2C1 Saat Hattı[cite: 1] |
+| **LCD SDA** | PB11[cite: 1] | I2C2 Veri Hattı[cite: 1] |
+| **LCD SCL** | PB10[cite: 1] | I2C2 Saat Hattı[cite: 1] |
+| **Toprak Nem Sensörü** | PA0[cite: 1] | ADC Analog Giriş[cite: 1] |
+| **Su Pompası Rölesi** | PD12[cite: 1] | Dijital Çıkış (GPIO)[cite: 1] |
+| **Grow LED Rölesi** | PD14[cite: 1] | Dijital Çıkış (GPIO)[cite: 1] |
+| **Servo Motor (Pencere)** | PA6[cite: 1] | PWM Çıkışı (TIM3)[cite: 1] |
+| **Menü Butonu (BTN)** | PA10[cite: 1] | Dijital Giriş (GPIO)[cite: 1] |
 
-## 🚀 Değerlendirme ve Gelecek Çalışmalar
-Bu sistemin ilerleyen versiyonlarında sisteme entegre edilmesi planlanan özellikler:
-* Sisteme bir Wi-Fi modülü dahil edilerek sensör verilerinin bulut ortamına (cloud logging) aktarılması ve uzaktan IoT tabanlı kontrol sağlanması.
-* Kapalı sera içi gaz dengesinin takibi ve bitki veriminin maksimize edilmesi amacıyla sisteme CO2 (Karbondioksit) sensörü entegrasyonunun yapılması.
-* Yaz aylarındaki aşırı sıcaklara karşı koyabilmek için fan destekli aktif soğutma ünitelerinin eklenmesi.
-* Toplanan verilerin yapay zeka algoritmalarıyla işlenerek dinamik sulama optimizasyonlarının gerçekleştirilmesi.
+### 🚀 Değerlendirme ve Gelecek Çalışmalar
+Bu sistemin ilerleyen versiyonlarında geliştirilmesi planlanan özellikler:
+* Sisteme bir Wi-Fi modülü dahil edilerek sensör verilerinin bulut ortamına (cloud logging) aktarılması ve uzaktan kontrol.
+* Kapalı sera içi gaz dengesinin takibi ve bitki veriminin maksimize edilmesi amacıyla sisteme CO2 sensörü entegrasyonu.
+* Toplanan verilerin yapay zeka algoritmalarıyla işlenerek hava durumu tahminlerine dayalı dinamik sulama optimizasyonu.
+
+---
+
+## 🇬🇧 [EN] STM32F407VG Based Smart Greenhouse Automation System
+This project is a modular smart greenhouse prototype capable of autonomously managing the varying climate and light requirements of different plant species on a single platform. Unlike traditional 8-bit, delay-based hobby projects, it is designed using a 32-bit ARM Cortex-M4 architecture and a Time-Triggered Finite State Machine (FSM) to maximize system stability.
+
+### 🌟 Key Features
+* **Autonomous Climate Control:** Real-time monitoring and threshold-based control of air temperature/humidity via the BME280 sensor, and soil moisture via a capacitive sensor.
+* **Thermal Management & Lighting:** Instead of using an external heater, the waste heat generated by high-power Grow LEDs is recovered to passively heat the greenhouse.
+* **Passive Cooling:** Autonomous management of a servo-motorized ventilation window controlled by a PWM signal when the ambient temperature exceeds the upper limit.
+* **Modular User Interface:** Selection of plant profiles via an I2C-based 16x2 LCD screen and menu system.
+* **Non-Blocking Architecture:** A task scheduler based on `HAL_GetTick()` to prevent the microcontroller from freezing during sensor reading and actuator control.
+
+### 🔌 Hardware Pinout
+The connection diagram of the hardware components to the STM32F407VG is as follows:
+
+| Component / Module | STM32 Pin | Function / Protocol |
+| :--- | :--- | :--- |
+| **BME280 SDA** | PB7[cite: 1] | I2C1 Data Line[cite: 1] |
+| **BME280 SCL** | PB6[cite: 1] | I2C1 Clock Line[cite: 1] |
+| **LCD SDA** | PB11[cite: 1] | I2C2 Data Line[cite: 1] |
+| **LCD SCL** | PB10[cite: 1] | I2C2 Clock Line[cite: 1] |
+| **Soil Moisture Sensor** | PA0[cite: 1] | ADC Analog Input[cite: 1] |
+| **Water Pump Relay** | PD12[cite: 1] | Digital Output (GPIO)[cite: 1] |
+| **Grow LED Relay** | PD14[cite: 1] | Digital Output (GPIO)[cite: 1] |
+| **Servo Motor (Window)**| PA6[cite: 1] | PWM Output (TIM3)[cite: 1] |
+| **Menu Button (BTN)** | PA10[cite: 1] | Digital Input (GPIO)[cite: 1] |
+
+### 🚀 Future Works
+Planned improvements for upcoming versions of this system:
+* Integrating a Wi-Fi module to transmit sensor data to a cloud logging environment for remote IoT-based control.
+* Integrating a CO2 sensor to monitor the gas balance inside the closed greenhouse and maximize plant yield.
+* Processing collected data with artificial intelligence algorithms to achieve dynamic irrigation optimization based on weather forecasts.
