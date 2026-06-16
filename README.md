@@ -17,15 +17,15 @@ Sistemdeki donanımların STM32F407VG mikrodenetleyicisine bağlantı şeması a
 
 | Bileşen / Modül | STM32 Pini | İşlev / Protokol |
 | :--- | :--- | :--- |
-| **BME280 SDA** | PB7[cite: 1] | I2C1 Veri Hattı[cite: 1] |
-| **BME280 SCL** | PB6[cite: 1] | I2C1 Saat Hattı[cite: 1] |
-| **LCD SDA** | PB11[cite: 1] | I2C2 Veri Hattı[cite: 1] |
-| **LCD SCL** | PB10[cite: 1] | I2C2 Saat Hattı[cite: 1] |
-| **Toprak Nem Sensörü** | PA0[cite: 1] | ADC Analog Giriş[cite: 1] |
-| **Su Pompası Rölesi** | PD12[cite: 1] | Dijital Çıkış (GPIO)[cite: 1] |
-| **Grow LED Rölesi** | PD14[cite: 1] | Dijital Çıkış (GPIO)[cite: 1] |
-| **Servo Motor (Pencere)** | PA6[cite: 1] | PWM Çıkışı (TIM3)[cite: 1] |
-| **Menü Butonu (BTN)** | PA10[cite: 1] | Dijital Giriş (GPIO)[cite: 1] |
+| **BME280 SDA** | PB7 | I2C1 Veri Hattı |
+| **BME280 SCL** | PB6 | I2C1 Saat Hattı |
+| **LCD SDA** | PB11 | I2C2 Veri Hattı |
+| **LCD SCL** | PB10 | I2C2 Saat Hattı |
+| **Toprak Nem Sensörü** | PA0[cite: 1] | ADC Analog Giriş |
+| **Su Pompası Rölesi** | PD12 | Dijital Çıkış (GPIO) |
+| **Grow LED Rölesi** | PD14 | Dijital Çıkış (GPIO) |
+| **Servo Motor (Pencere)** | PA6 | PWM Çıkışı (TIM3) |
+| **Menü Butonu (BTN)** | PA10 | Dijital Giriş (GPIO) |
 
 ### 🚀 Değerlendirme ve Gelecek Çalışmalar
 Bu sistemin ilerleyen versiyonlarında geliştirilmesi planlanan özellikler:
@@ -50,15 +50,15 @@ The connection diagram of the hardware components to the STM32F407VG is as follo
 
 | Component / Module | STM32 Pin | Function / Protocol |
 | :--- | :--- | :--- |
-| **BME280 SDA** | PB7[cite: 1] | I2C1 Data Line[cite: 1] |
-| **BME280 SCL** | PB6[cite: 1] | I2C1 Clock Line[cite: 1] |
-| **LCD SDA** | PB11[cite: 1] | I2C2 Data Line[cite: 1] |
-| **LCD SCL** | PB10[cite: 1] | I2C2 Clock Line[cite: 1] |
-| **Soil Moisture Sensor** | PA0[cite: 1] | ADC Analog Input[cite: 1] |
-| **Water Pump Relay** | PD12[cite: 1] | Digital Output (GPIO)[cite: 1] |
-| **Grow LED Relay** | PD14[cite: 1] | Digital Output (GPIO)[cite: 1] |
-| **Servo Motor (Window)**| PA6[cite: 1] | PWM Output (TIM3)[cite: 1] |
-| **Menu Button (BTN)** | PA10[cite: 1] | Digital Input (GPIO)[cite: 1] |
+| **BME280 SDA** | PB7 | I2C1 Data Line |
+| **BME280 SCL** | PB6 | I2C1 Clock Line |
+| **LCD SDA** | PB11 | I2C2 Data Line |
+| **LCD SCL** | PB10 | I2C2 Clock Line |
+| **Soil Moisture Sensor** | PA0 | ADC Analog Input |
+| **Water Pump Relay** | PD12 | Digital Output (GPIO) |
+| **Grow LED Relay** | PD14 | Digital Output (GPIO) |
+| **Servo Motor (Window)**| PA6 | PWM Output (TIM3) |
+| **Menu Button (BTN)** | PA10 | Digital Input (GPIO) |
 
 ### 🚀 Future Works
 Planned improvements for upcoming versions of this system:
