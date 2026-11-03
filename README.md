@@ -72,5 +72,4 @@ uygulamanın mevcut davranışına dayanır.
 ## Authorship and licensing
 
 Application development and embedded integration: **southpaw**.
-Vendor HAL/CMSIS notices remain applicable. A project-wide license has not
-yet been selected.
+Application code is MIT-licensed (see LICENSE); third-party components keep their own licenses.
